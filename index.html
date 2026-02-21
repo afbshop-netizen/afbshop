@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AFB Shop Deoria</title>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f172a">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial}
@@ -18,7 +20,7 @@ position:sticky;top:0;z-index:1000;
 nav h2{white-space:nowrap;font-size:18px}
 
 .search{flex:1;padding:16px;border-radius:8px;border:none;
-width: 800px;height: 40px;
+width: 400px;height: 40px;
 }
 .logo{
   font-size:28px;
@@ -344,7 +346,7 @@ padding-top:10px;
 </div>
 
 <div class="hero-right">
-<img src="D:\Shop\images\hero.png" alt="">
+<img src="hero.png" alt="">
 </div>
 
 </section>
@@ -413,17 +415,17 @@ img:["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE8Q47Lknm3EEvezk8-t
 {name:"Realme 14x 8/128",price:17272,discount:12,category:"Phone",
 img:["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE8Q47Lknm3EEvezk8-t656LATpwcnKpPIqQ&s","https://via.placeholder.com/450"]},
 
-{name:"Realme 16x",price:9999,discount:12,category:"Phone",
-img:["https://via.placeholder.com/150","https://via.placeholder.com/450"]},
+{name:"Realme 16 pro.8/256",price:30200,discount:0,category:"Phone",
+img:["https://www.paiinternational.in/_next/image?url=https%3A%2F%2Fbackend.paiinternational.in%2Fmedia%2Fimages%2Ff_wm3HTaw.webp&w=640&q=75","https://via.placeholder.com/450"]},
 
 {name:"Smart Phone",price:9999,discount:12,category:"Phone",
 img:["https://via.placeholder.com/150","https://via.placeholder.com/450"]},
 
-{name:"Smart Phone",price:9999,discount:12,category:"Phone",
-img:["https://via.placeholder.com/150","https://via.placeholder.com/450"]},
+{name:"K13x 6/128",price:13300,discount:0,category:"Phone",
+img:["https://m.media-amazon.com/images/I/41fosPkqZAL._AC_UF1000,1000_QL80_.jpg","https://via.placeholder.com/450"]},
 
-{name:"Smart Phone",price:9999,discount:12,category:"Phone",
-img:["https://via.placeholder.com/150","https://via.placeholder.com/450"]},
+{name:"Realme 15x 6/128",price:15000,discount:0,category:"Phone",
+img:["https://img6.gadgetsnow.com/gd/images/products/additional/small/G693654_View_1/mobiles/smartphones/realme-15x-5g-128-gb-maroon-red-6-gb-ram-.jpg","https://via.placeholder.com/450"]},
 
 {name:"Smart Phone",price:9999,discount:12,category:"Phone",
 img:["https://via.placeholder.com/150","https://via.placeholder.com/450"]},
@@ -677,8 +679,20 @@ Cancel
 
 </div>
 </div>
-
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js")
+    .then(() => console.log("Service Worker Registered"));
+}
+</script>
 
 </body>
 </html>
+
+
+
+
+
+
+
 
