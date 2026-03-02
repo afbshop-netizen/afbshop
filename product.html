@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  font-family:Poppins;
+  margin:0;
+  background:#f3f4f6;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:30px;
+}
+
+.left{
+  flex:1 1 45%;
+}
+
+.right{
+  flex:1 1 45%;
+  background:white;
+  padding:20px;
+  border-radius:10px;
+}
+
+.main-img{
+  width:100%;
+  height:400px;
+  object-fit:contain;
+  border-radius:10px;
+  background:white;
+}
+
+.thumb{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+
+.thumb img{
+  width:70px;
+  height:70px;
+  object-fit:contain;
+  border:1px solid #ccc;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.price{
+  color:#047857;
+  font-size:24px;
+  font-weight:bold;
+}
+
+.old{
+  color:#888;
+  text-decoration:line-through;
+}
+
+button{
+  background:#ff9900;
+  border:none;
+  padding:12px;
+  width:100%;
+  border-radius:6px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="left">
+<img id="mainImage" class="main-img">
+<div class="thumb" id="thumbContainer"></div>
+</div>
+
+<div class="right">
+<h2 id="name"></h2>
+<p id="brand"></p>
+<p id="category"></p>
+<p class="price" id="finalPrice"></p>
+<p class="old" id="oldPrice"></p>
+<p id="discountText" style="color:green;font-weight:bold;"></p>
+<p id="stock"></p>
+<p id="description"></p>
+<button>Add to Cart</button>
+</div>
+
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyDDufb2t6vj8WNETg8oqyBf9FtO4MOlfPs",
+authDomain: "afbshop-355e1.firebaseapp.com",
+projectId: "afbshop-355e1",
+storageBucket: "afbshop-355e1.firebasestorage.app",
+messagingSenderId: "607607033369",
+appId: "1:607607033369:web:b505b30fe89336ebc1a488"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const urlParams = new URLSearchParams(window.location.search);
+const productId = urlParams.get("id");
+
+if(productId){
+
+const docRef = doc(db,"products",productId);
+const docSnap = await getDoc(docRef);
+
+if(docSnap.exists()){
+
+const p = docSnap.data();
+
+document.getElementById("name").innerText=p.name;
+document.getElementById("brand").innerText="Brand: "+(p.brand||"");
+document.getElementById("category").innerText="Category: "+(p.category||"");
+document.getElementById("stock").innerText=p.stock?("Stock: "+p.stock):"";
+document.getElementById("description").innerText=p.description||"";
+
+let price = Number(p.price);
+let discount = Number(p.discount)||0;
+let finalPrice = price;
+
+if(discount>0){
+  finalPrice = price - (price*discount/100);
+  document.getElementById("oldPrice").innerText="₹"+price;
+  document.getElementById("discountText").innerText=discount+"% OFF";
+}
+
+document.getElementById("finalPrice").innerText="₹"+finalPrice;
+
+const main=document.getElementById("mainImage");
+main.src=p.images?.[0] || "";
+
+const thumbContainer=document.getElementById("thumbContainer");
+thumbContainer.innerHTML="";
+
+p.images?.forEach(url=>{
+const img=document.createElement("img");
+img.src=url;
+img.onclick=()=>{main.src=url;}
+thumbContainer.appendChild(img);
+});
+
+if(p.video){
+const video=document.createElement("video");
+video.src=p.video;
+video.controls=true;
+video.style.width="100%";
+video.style.marginTop="15px";
+document.querySelector(".left").appendChild(video);
+}
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

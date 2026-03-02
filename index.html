@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AFB Shop</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body { font-family: Arial; margin:0; 
+  background:linear-gradient(135deg,#f8fcff,#8ef2ff);
+   }
+.navbar{display:flex;align-items:center;gap:15px;padding:10px 5%;background:#131921;color:white;position:sticky;top:0;z-index:1000;}
+.logo{font-weight:700;font-size:22px;cursor:pointer;}
+.search{flex:1;padding:8px;border-radius:6px;border:none;}
+.cart{background:#ff9900;padding:6px 12px;border-radius:6px;color:black;font-weight:600;cursor:pointer;}
+.hero-section{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  padding:40px 5%;
+  background:linear-gradient(135deg,#f8fcff,#32f800);
+  gap:30px;
+}
+
+.hero-left{
+  flex:1;
+  min-width:280px;
+}
+
+.delivery-highlight{
+  display:inline-block;
+  background:#0d6efd;
+  color:#fff;
+  padding:6px 14px;
+  font-size:13px;
+  border-radius:20px;
+  margin-bottom:15px;
+  font-weight:bold;
+}
+
+.hero-left h1{
+  font-size:32px;
+  margin-bottom:15px;
+}
+
+.hero-left p{
+  font-size:16px;
+  margin-bottom:25px;
+  color:#555;
+}
+
+.hero-btn{
+  display:inline-block;
+  padding:12px 25px;
+  background:#0d6efd;
+  color:white;
+  text-decoration:none;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+.small-link-box{
+  margin-top:20px;
+  padding:12px;
+  background:#7eaef7;
+  display:inline-block;
+  border-radius:10px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* RIGHT SIDE SLIDER */
+
+.hero-right{
+  flex:1;
+  min-width:300px;
+  width:100%;
+}
+
+.hero-slider{
+  width:100%;
+  max-width:500px;
+  margin:auto;
+  overflow:hidden;
+  border-radius:15px;
+}
+
+.slides{
+  display:flex;
+  transition:transform 0.6s ease-in-out;
+}
+
+.slides img{
+  width:100%;
+  min-width:100%;
+  height:280px;
+  object-fit:cover;
+  display:block;
+  flex-shrink:0;
+}
+
+/* MOBILE FIX */
+@media(max-width:768px){
+  .hero-section{
+    flex-direction:column;
+  }
+
+  .slides img{
+    height:240px;
+  }
+}
+
+#categoryBar{ display:flex; gap:15px; overflow:auto; padding:10px; }
+
+#categoryBar div{
+  min-width:80px;
+  text-align:center;
+  cursor:pointer;
+}
+
+#categoryBar img{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+  margin:auto;
+}
+
+#products{ display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:15px; padding:15px; }
+.product { background:#fdfdfd; border-radius:12px; padding:10px; cursor:pointer; transition:0.2s; box-shadow:0px 2px 8px rgba(0,0,0,0.05); }
+.product:hover{ transform:scale(1.02); }
+
+.product img { width:100%; height:250px; object-fit:cover; border-radius:10px; }
+.product h3{ font-size:15px; margin:6px 0 4px; }
+.product h4{ margin:0; font-size:16px; }
+.discount{ color:green; font-size:13px; font-weight:bold; }
+
+
+#productDetail{ display:none; padding:15px; background:#fff; min-height:100vh; }
+
+button { padding:8px 15px; border:none; background:black; color:white; border-radius:5px; cursor:pointer; margin-top:8px; }
+
+#cartBox { position:fixed; right:0; top:0; width:300px; height:100%; background:white; box-shadow:-3px 0 10px rgba(0,0,0,0.2); padding:15px; display:none; overflow:auto; }
+
+.popupBg { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; }
+
+.popupBox { background:white; padding:20px; width:90%; max-width:600px; border-radius:10px; }
+
+.removeBtn{ background:red; }
+<!-- =========================
+        FOOTER START
+========================== -->
+<style>
+.footer{
+  background:#0f172a;
+  color:black;
+  padding:50px 8% 20px;
+}
+
+.footer-container{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:30px;bgbhgh
+  color:black;
+}
+
+.footer-box{
+  flex:1;
+  min-width:220px;
+  color:black;
+  
+  
+}
+
+.footer-box h3{
+  margin-bottom:15px;
+  color:#0d6efd;
+}
+
+.footer-box p,
+.footer-box a{
+  font-size:14px;
+  color:#000000;
+  text-decoration:none;
+  display:block;
+  margin-bottom:8px;
+}
+
+.footer-box a:hover{
+  color:#fff;
+}
+
+.social-icons a{
+  display:inline-block;
+  margin-right:10px;
+  font-size:18px;
+  color:#fff;
+}
+
+.footer-bottom{
+  text-align:center;
+  border-top:1px solid #333;
+  margin-top:30px;
+  padding-top:15px;
+  font-size:13px;
+  color:#aaa;
+}
+
+.footer-highlight{
+  display:inline-block;
+  background:#0953c2;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:12px;
+  margin-top:10px;
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="logo">AFB Shop</div>
+  <input type="text" id="search" class="search" placeholder="Search products...">
+  <div class="cart" onclick="openCart()">Cart (<span id="cartCount">0</span>)</div>
+</nav>
+<section class="hero-section">
+
+  <div class="hero-left">
+
+    <div class="delivery-highlight">
+      ⚡ Same Day Delivery in Deoria
+    </div>
+
+    <h1>Shop Smart Gadgets & Fashion at Best Prices</h1>
+
+    <p>
+      Discover smart watches, mobiles, laptops, earbuds and fashion items 
+      with fast, secure and hassle-free delivery. Order today & get it today!
+    </p>
+
+    <a href="#products" class="hero-btn">Start Shopping</a>
+
+    <div class="small-link-box">
+    <a href="#offers">AFB Testbook</a>
+    </div>
+
+  </div>
+
+  <div class="hero-right">
+ <div class="hero-slider">
+ <div class="slides">
+ <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30">
+ <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f">
+ 
+
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<<!-- =========================
+        HERO SECTION END
+========================== -->
+<div id="categoryBar"></div>
+<div id="products"></div>
+<div id="productDetail"></div>
+
+
+<div id="cartBox">
+  <h3>Your Cart</h3>
+  <div id="cartItems"></div>
+  <h3>Total: ₹<span id="totalPrice">0</span></h3>
+  <button onclick="openCheckout()">Checkout</button>
+</div>
+
+
+<!-- DELIVERY POPUP -->
+<div class="popupBg" id="deliveryPopup">
+  <div class="popupBox">
+    <h3>Delivery Details</h3>
+
+    <input id="custName" placeholder="Full Name"><br><br>
+    <input id="custPhone" placeholder="Phone"><br><br>
+
+    <textarea id="custCity" placeholder="Full Address"
+      style="width:100%;height:90px;"></textarea><br><br>
+
+    <input id="custPincode" placeholder="Pincode"><br><br>
+
+    <button onclick="getLocation()">📍 Auto Detect Location</button><br><br>
+
+    <button onclick="saveDelivery()">Continue to Payment</button>
+  </div>
+</div>
+
+<!-- PAYMENT POPUP -->
+<div class="popupBg" id="paymentPopup">
+  <div class="popupBox">
+    <h3>Select Payment</h3>
+    <button onclick="placeOrder('COD')">Cash on Delivery</button>
+    <button onclick="payUPI()">Pay via UPI</button>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {  
+  apiKey: "AIzaSyDDufb2t6vj8WNETg8oqyBf9FtO4MOlfPs",  
+  authDomain: "afbshop-355e1.firebaseapp.com",  
+  projectId: "afbshop-355e1",  
+  storageBucket: "afbshop-355e1.appspot.com",  
+  messagingSenderId: "607607033369",  
+  appId: "1:607607033369:web:b505b30fe89336ebc1a488",  
+  measurementId: "G-MGP0CP80XR"  
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let cart=[];
+let allProducts=[];
+let categories=new Map();
+let currentCategory=null; // 👈 category + search combine support
+
+async function loadProducts(){
+  const snap=await getDocs(collection(db,"products"));
+  products.innerHTML="";
+  allProducts=[];
+  categories.clear();
+
+  snap.forEach(doc=>{
+    const data=doc.data();
+    allProducts.push(data);
+
+    if(data.category && !categories.has(data.category)){
+      categories.set(data.category,data.categoryImage || data.images?.[0]);
+    }
+
+    createProductCard(data);
+  });
+
+  renderCategories();
+}
+
+function renderCategories(){
+  categoryBar.innerHTML="";
+  categories.forEach((img,name)=>{
+    categoryBar.innerHTML+=`
+      <div onclick="filterCategory('${name}')">
+        <img src="${img}">
+        <small>${name}</small>
+      </div>
+    `;
+  });
+}
+
+window.filterCategory=function(cat){
+  currentCategory = cat; // 👈 save selected category
+  applyFilters();
+}
+
+function createProductCard(data){
+  const original=Number(data.price)||0;
+  const discount=Number(data.discount)||0;
+  const final=Math.round(original-(original*discount/100));
+
+  const div=document.createElement("div");
+  div.className="product";
+  div.innerHTML=`
+    <img src="${data.images?.[0] || ''}">
+    <h3>${data.name}</h3>
+    <h4>₹${final}</h4>
+    ${discount>0?`<p class="discount">${discount}% OFF</p>`:''}
+  `;
+  div.onclick=()=>openProduct(data);
+  products.appendChild(div);
+}
+
+/* =========================
+   IMPROVED SEARCH SYSTEM
+========================= */
+
+window.searchProducts=function(){
+  applyFilters();
+};
+
+function applyFilters(){
+
+  const val = document.getElementById("search").value.toLowerCase().trim();
+
+  products.innerHTML="";
+
+  let filtered = allProducts;
+
+  // Category filter apply
+  if(currentCategory){
+    filtered = filtered.filter(p=>p.category===currentCategory);
+  }
+
+  // Search filter apply
+  if(val!==""){
+    filtered = filtered.filter(p=>{
+      const name = p.name?.toLowerCase() || "";
+      const category = p.category?.toLowerCase() || "";
+      const features = p.features?.toLowerCase() || "";
+
+      return (
+        name.includes(val) ||
+        category.includes(val) ||
+        features.includes(val)
+      );
+    });
+  }
+
+  if(filtered.length===0){
+    products.innerHTML="<h3 style='text-align:center;'>No product found</h3>";
+    return;
+  }
+
+  filtered.forEach(p=>createProductCard(p));
+}
+
+/* =========================
+   PRODUCT DETAIL
+========================= */
+
+window.openProduct=function(product){
+  products.style.display="none";
+  productDetail.style.display="block";
+
+  const original=Number(product.price)||0;
+  const discount=Number(product.discount)||0;
+  const final=Math.round(original-(original*discount/100));
+
+  const found=cart.find(i=>i.name===product.name);
+  const isAdded=found ? true : false;
+
+  productDetail.innerHTML=`
+    <button onclick="goHome()">⬅ Back</button>
+    ${(product.images||[]).map(img=>`<img src="${img}" style="width:100%;margin-bottom:10px;">`).join("")}
+    <h2>${product.name}</h2>
+    <h3>₹${final}</h3>
+    <p>${product.features||''}</p>
+
+    <button style="background:${isAdded ? 'green' : 'black'}"
+      onclick='addToCart(${JSON.stringify(product)})'>
+      ${isAdded ? 'Added ✓' : 'Add to Cart'}
+    </button>
+  `;
+}
+
+window.goHome=function(){
+  productDetail.style.display="none";
+  products.style.display="grid";
+}
+
+window.addToCart=function(product){
+  const found=cart.find(i=>i.name===product.name);
+  if(found){ found.qty++; }
+  else{ cart.push({...product,qty:1}); }
+  updateCart();
+  openProduct(product);
+}
+
+function updateCart(){
+  cartItems.innerHTML="";
+  let total=0,count=0;
+
+  cart.forEach((item,index)=>{
+    const original=Number(item.price)||0;
+    const discount=Number(item.discount)||0;
+    const final=Math.round(original-(original*discount/100));
+
+    total+=final*item.qty;
+    count+=item.qty;
+
+    cartItems.innerHTML+=`
+      <div>
+      <b>${item.name}</b><br>
+      ₹${final} x ${item.qty}<br>
+      <button onclick="changeQty(${index},-1)">-</button>
+      <button onclick="changeQty(${index},1)">+</button>
+      <button style="background:red;" onclick="removeItem(${index})">Remove</button>
+      </div><hr>
+    `;
+  });
+
+  let delivery=0;
+  if(total>0 && total<500) delivery=20;
+
+  totalPrice.innerText=total+delivery;
+  cartCount.innerText=count;
+}
+
+window.changeQty=function(i,val){
+  cart[i].qty+=val;
+  if(cart[i].qty<=0){ cart.splice(i,1); }
+  updateCart();
+}
+
+window.removeItem=function(i){
+  cart.splice(i,1);
+  updateCart();
+}
+
+window.openCart=function(){ cartBox.style.display="block"; }
+
+window.openCheckout=function(){
+  if(Number(totalPrice.innerText)<100){
+    alert("Minimum order ₹100 required");
+    return;
+  }
+  deliveryPopup.style.display="flex";
+}
+
+/* ===== GPS AUTO ADDRESS ===== */
+
+window.getLocation = async function(){
+
+  if(!navigator.geolocation){
+    alert("Geolocation not supported");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(async position => {
+
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+    );
+
+    const data = await response.json();
+
+    custCity.value = data.display_name || "";
+    document.getElementById("custPincode").value = data.address?.postcode || "";
+
+    window.currentLat = lat;
+    window.currentLng = lng;
+
+    alert("Location detected successfully ✅");
+
+  }, ()=>{
+    alert("Location permission denied ❌");
+  });
+}
+
+window.saveDelivery=function(){
+  if(!custName.value||!custPhone.value||!custCity.value){
+    alert("Fill all fields");
+    return;
+  }
+  deliveryPopup.style.display="none";
+  paymentPopup.style.display="flex";
+}
+
+window.payUPI=function(){
+  const upiId="aftab3128178-1@okhdfcbank";
+  const amount=totalPrice.innerText;
+  window.location.href=`upi://pay?pa=${upiId}&pn=AFB Shop&am=${amount}&cu=INR`;
+}
+
+/* ===== WHATSAPP ORDER WITH MAP LINK ===== */
+
+window.placeOrder=function(method){
+
+  const name = custName.value;
+  const phone = custPhone.value;
+  const address = custCity.value;
+  const pincode = document.getElementById("custPincode").value;
+  const total = totalPrice.innerText;
+
+  if(cart.length===0){
+    alert("Cart is empty");
+    return;
+  }
+
+  let orderText = "🛒 *New Order* %0A%0A";
+
+  cart.forEach(item=>{
+    const original = Number(item.price)||0;
+    const discount = Number(item.discount)||0;
+    const final = Math.round(original-(original*discount/100));
+
+    orderText += item.name + " x " + item.qty + " = ₹" + (final*item.qty) + "%0A";
+  });
+
+  orderText += "%0A👤 Name: " + name;
+  orderText += "%0A📞 Phone: " + phone;
+  orderText += "%0A📍 Address: " + address;
+  orderText += "%0A📮 Pincode: " + pincode;
+  orderText += "%0A💰 Payment: " + method;
+  orderText += "%0A%0A💵 Total: ₹" + total;
+
+  if(window.currentLat && window.currentLng){
+    orderText += "%0A📌 Map: https://www.google.com/maps?q=" 
+      + window.currentLat + "," + window.currentLng;
+  }
+
+  const whatsappNumber = "917237023160";
+
+  window.open("https://wa.me/"+whatsappNumber+"?text="+orderText);
+
+  paymentPopup.style.display="none";
+  cartBox.style.display="none";
+
+  cart=[];
+  updateCart();
+
+  alert("Order Sent on WhatsApp Successfully ✅");
+}
+
+loadProducts();
+document.getElementById("search")
+  .addEventListener("input", searchProducts);
+  /* =========================
+   HERO IMG SLIDDER
+========================= */
+document.addEventListener("DOMContentLoaded", function(){
+
+  const slides = document.querySelector(".slides");
+  const totalSlides = document.querySelectorAll(".slides img").length;
+  let index = 0;
+
+  function slideImages(){
+    index++;
+    if(index >= totalSlides){
+      index = 0;
+    }
+    slides.style.transform = "translateX(-" + (index * 100) + "%)";
+  }
+
+  setInterval(slideImages,3000);
+
+});
+
+</script>
+<footer class="footer">
+
+  <div class="footer-container">
+
+    <!-- BRAND INFO -->
+    <div class="footer-box">
+      <h3>AFB Shop</h3>
+      <p>Your trusted online grocery store delivering fresh products at your doorstep.</p>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="footer-box">
+      <h3>Quick Links</h3>
+      <a href="#products">Shop</a>
+      <a href="#offers">Offers</a>
+      <a href="D:\Shop\about.html">About us</a>
+      <a href="D:\Shop\contact.html">Contact Us</a>
+    </div>
+
+    <!-- CUSTOMER SUPPORT -->
+    <div class="footer-box">
+      <h3>Customer Support</h3>
+      <a href="#">FAQs</a>
+      <a href="#">Return Policy</a>
+      <a href="D:\Shop\privacy-policy.html">Privacy Policy</a>
+      <a href="#">Terms & Conditions</a>
+    </div>
+
+    <!-- CONTACT INFO -->
+    <div class="footer-box">
+      <h3>Contact</h3>
+      <p>📍 Deoria, Uttar Pradesh</p>
+      <p>📞 +91 7237023160</p>
+      <p>✉ support@afbshop.com</p>
+
+      <div class="social-icons">
+        <a href="#">🔵</a>
+        <a href="#">📸</a>
+        <a href="#">🟢</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 AFB Shop | All Rights Reserved
+  </div>
+
+</footer>
+<!-- =========================
+        FOOTER END
+========================== -->
+</body>
+</html>
