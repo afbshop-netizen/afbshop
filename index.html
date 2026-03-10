@@ -2,6 +2,9 @@
 <html>
 <head>
 <title>AFB Shop</title>
+<script async 
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXX"
+crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -127,14 +130,17 @@ body { font-family: Arial; margin:0;
   margin:auto;
 }
 
-#products{ display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:15px; padding:15px; }
-.product { background:#fdfdfd; border-radius:12px; padding:10px; cursor:pointer; transition:0.2s; box-shadow:0px 2px 8px rgba(0,0,0,0.05); }
+#products{ display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:15px; padding:5px; }
+.product { background:#fdfdfd; border-radius:6px; padding:6px; cursor:pointer; transition:0.2s; box-shadow:0px 2px 4px rgba(0,0,0,0.05); }
 .product:hover{ transform:scale(1.02); }
 
-.product img { width:100%;height:160px;object-fit:contain; }
+.product img { width:80%;height:160px;object-fit:cover;border-radius: 10px; }
+.product img:hover{transform: scale(1.1);}
 .product h3{ font-size:15px; margin:6px 0 4px; }
-.product h4{ margin:0; font-size:16px; }
-.discount{ color:green; font-size:13px; font-weight:bold; }
+.product h4{ margin:0; font-size:16px;background:rgb(85, 212, 81); }
+.product button{width: 100%;padding: 9px;margin-top: 6px;border: none;background: #ff6a00;color: white;border-radius: 6px;cursor: pointer;font-size: 14px;}
+.product button:hover{background: #ff4500;}
+.discount{position: absolute;top: 0px;right: 2px;background:rgb(208, 241, 207); color:green; font-size:13px; font-weight:bold;padding: 3px 7px;border-radius: 5px; }
 
 
 #productDetail{ display:none; padding:15px; background:#fff; min-height:100vh; }
@@ -243,7 +249,7 @@ button { padding:8px 15px; border:none; background:black; color:white; border-ra
     <a href="#products" class="hero-btn">Start Shopping</a>
 
     <div class="small-link-box">
-    <a href="#offers">AFB Testbook</a>
+    <a href="#blog">Blog</a>
     </div>
 
   </div>
@@ -262,12 +268,23 @@ button { padding:8px 15px; border:none; background:black; color:white; border-ra
 
 </section>
 
-<<!-- =========================
+<!-- =========================
         HERO SECTION END
 ========================== -->
 <div id="categoryBar"></div>
 <div id="products"></div>
 <div id="productDetail"></div>
+<!-- =========================
+        Adsence
+========================== -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-XXXXXXXX"
+     data-ad-slot="123456789"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+
+
 
 
 <div id="cartBox">
@@ -366,18 +383,27 @@ window.filterCategory=function(cat){
 }
 
 function createProductCard(data){
-  const original=Number(data.price)||0;
-  const discount=Number(data.discount)||0;
-  const final=Math.round(original-(original*discount/100));
+
+  const original = Number(data.price)||0;
+  const discount = Number(data.discount)||0;
+  const final = Math.round(original-(original*discount/100));
 
   const div=document.createElement("div");
   div.className="product";
+
   div.innerHTML=`
     <img src="${data.images?.[0] || ''}">
     <h3>${data.name}</h3>
     <h4>₹${final}</h4>
+
     ${discount>0?`<p class="discount">${discount}% OFF</p>`:''}
+
+    <button onclick="event.stopPropagation();shareProduct('${data.name}')"
+    style="background:#25d366;margin-top:5px;">
+    Share
+    </button>
   `;
+
   div.onclick=()=>openProduct(data);
   products.appendChild(div);
 }
@@ -424,6 +450,33 @@ function applyFilters(){
   }
 
   filtered.forEach(p=>createProductCard(p));
+}
+/* =========================
+   share function
+========================= */
+window.shareProduct=function(name){
+
+  const url = window.location.href;
+
+  const text = "Check this product: " + name + " " + url;
+
+  const whatsapp = "https://wa.me/?text=" + encodeURIComponent(text);
+
+  window.open(whatsapp);
+}
+window.shareProduct=function(name){
+
+  const url = window.location.href;
+
+  const text =
+  "🛒 Check this product on AFB Shop\n\n" +
+  name + "\n\n" +
+  url;
+
+  const whatsapp =
+  "https://wa.me/?text=" + encodeURIComponent(text);
+
+  window.open(whatsapp);
 }
 
 /* =========================
@@ -641,7 +694,42 @@ document.addEventListener("DOMContentLoaded", function(){
 
 });
 
+/* =========================
+   Adsense bas do line hain
+========================= */
+(adsbygoogle = window.adsbygoogle || []).push({});
+
 </script>
+
+<section id="blog" style="padding:40px 5%;background:#f5f5f5;">
+
+<h2 style="text-align:center;margin-bottom:30px;">
+Latest Blogs
+</h2>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;">
+
+<div style="background:white;padding:15px;border-radius:10px;">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" style="width:100%;border-radius:8px;">
+<h3>Best Smartwatch Under ₹2000</h3>
+<p>Top smartwatches with fitness tracking.</p>
+</div>
+
+<div style="background:white;padding:15px;border-radius:10px;">
+<img src="https://images.unsplash.com/photo-1518441902110-9b4b2d6b2f39" style="width:100%;border-radius:8px;">
+<h3>Best Earbuds in 2025</h3>
+<p>Best wireless earbuds for music.</p>
+</div>
+
+<div style="background:white;padding:15px;border-radius:10px;">
+<img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8" style="width:100%;border-radius:8px;">
+<h3>Laptop Buying Guide</h3>
+<p>How to choose best laptop.</p>
+</div>
+
+</div>
+
+</section>
 <footer class="footer">
 
   <div class="footer-container">
